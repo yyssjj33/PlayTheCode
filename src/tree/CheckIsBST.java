@@ -1,5 +1,7 @@
 package tree;
 
+import java.util.Stack;
+
 public class CheckIsBST {
 
 	public static boolean isBSTSlow(TreeNode<Integer> node) {
@@ -69,16 +71,32 @@ public class CheckIsBST {
 		
 		return true;
 	}
-
+	
+	public static boolean isBSTIter(TreeNode<Integer> node) {
+		Stack<TreeNode<Integer>> s = new Stack<TreeNode<Integer>>();
+		PrevVal p = new PrevVal(Integer.MIN_VALUE);
+		TreeNode<Integer> cur = node;
+		while (cur!=null || !s.isEmpty()){
+			while(cur!=null){
+				s.push(cur);
+				cur = cur.leftChild;
+			}
+			cur = s.pop();
+			if(cur.element<p.val) return false;
+			p.val = cur.element;
+			cur = cur.rightChild;
+		}
+		return true;
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		TreeNode<Integer> t1 = new TreeNode<Integer>(3);
+		TreeNode<Integer> t1 = new TreeNode<Integer>(4);
 		t1.leftChild = new TreeNode<Integer>(2);
 		t1.rightChild = new TreeNode<Integer>(5);
-		t1.leftChild.rightChild = new TreeNode<Integer>(4);
+		t1.leftChild.rightChild = new TreeNode<Integer>(3);
 		t1.leftChild.leftChild = new TreeNode<Integer>(1);
-		System.out.println(isBSTInOrder(t1));
+		System.out.println(isBSTIter(t1));
 	}
 }
 class PrevVal{

@@ -12,7 +12,8 @@ public class SubsetsLintCode {
 		return result;
 	}
 	public static void helper(ArrayList<ArrayList<Integer>> result, ArrayList<Integer> list, int[] nums, int index){
-		result.add(new ArrayList<Integer>(list));
+		if (list.size()==2)
+			result.add(new ArrayList<Integer>(list));
 		for(int i = index; i < nums.length; i++){
 //			if( i != index && nums[i] == nums[i-1])
 //				continue;
