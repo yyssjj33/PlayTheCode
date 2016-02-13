@@ -27,7 +27,12 @@ public class InfixToPostfix {
                 int num1 = ans.pop();
                 int num2 = ans.pop();
                 ans.push(num2/num1);
-            }else{
+            }else if (val.equals("^")){
+            	int num1 = ans.pop();
+            	int num2 = ans.pop();
+            	ans.push((int)Math.pow(num2, num1));
+            }
+            else{
                 ans.push(Integer.valueOf(val));
             }
             
@@ -97,7 +102,7 @@ public class InfixToPostfix {
         return result.toString();
     }
     public static void main(String[] args) {
-    	System.out.println(calculate("(3+2)*(2-1)"));
+    	System.out.println(calculate("(3+2)^(3-1)-7*(1-2)"));
     	
     }
 }

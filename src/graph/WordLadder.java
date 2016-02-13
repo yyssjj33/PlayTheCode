@@ -1,11 +1,7 @@
 package graph;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
+
 
 public class WordLadder {
 	public static void main(String[] args) {
@@ -16,9 +12,13 @@ public class WordLadder {
 		for (String i: s){
 			set.add(i);
 		}
-
-		
-		System.out.println(getLevel(start, set));
+		set.add(start);
+		set.add(end);
+		HashMap<String, Set<String>> hm = createNeighbors(set);
+//		for(Map.Entry<String, Set<String>> entry : hm.entrySet()){
+//			System.out.println(entry.toString());
+//		}
+		System.out.println(getLength(start,end, set));
 		
  	}
 	
@@ -61,6 +61,7 @@ public class WordLadder {
 		if (dict == null) return 0;
 		dict.add(start);
 		dict.add(end);
+		HashMap<String, Set<String>> hm = createNeighbors(dict);
 		Queue<String> queue = new LinkedList<String>();
 		Set<String> set = new HashSet<String>();
 		queue.offer(start);
@@ -73,7 +74,7 @@ public class WordLadder {
 			for (int i = 0; i < size; i++){
 				String cur = queue.poll();
 				
-				for(String neighbor : neighbors(cur, dict)){
+				for(String neighbor : hm.get(cur)){
 					if (set.contains(neighbor)){
 						continue;
 					}
@@ -90,9 +91,19 @@ public class WordLadder {
 
 		return 0;
 	}
-
-	private static ArrayList<String> neighbors(String word, Set<String> dict) {
-		ArrayList<String> res = new ArrayList<String>();
+	
+	private static HashMap<String, Set<String>> createNeighbors(Set<String> dict){
+		HashMap<String, Set<String>> hm = new HashMap<String, Set<String>>();
+		for (String str : dict){
+			Set<String> list = neighbors(str, dict);
+			
+			hm.put(str, list);
+		}
+		return hm;
+	}
+	
+	private static Set<String> neighbors(String word, Set<String> dict) {
+		Set<String> res = new HashSet<String>();
 		for (int i = 0; i < word.length(); i++) {
 			char[] wordarr = word.toCharArray();
 			for (char c = 'a'; c <= 'z'; c++) {

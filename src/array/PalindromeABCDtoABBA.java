@@ -22,8 +22,11 @@ public class PalindromeABCDtoABBA {
 		return res;
 	}
 	
+	
+
+	
 	public static void main(String[] args) {
-		System.out.println(solve("ak"));
-		System.out.println(Arrays.toString("asd asd    a".split(" ")));
+	
+	
 	}
 }
