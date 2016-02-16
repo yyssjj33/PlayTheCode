@@ -22,6 +22,7 @@ public class SubsetsLintCode {
 			list.remove(list.size() - 1);
 		}
 	}
+
 	
 	public static void main(String[] args) {
 		int[] nums = {1,2,3};
